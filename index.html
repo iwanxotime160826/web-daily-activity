@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Planner & Routine Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i data-lucide="calendar-check-2"></i></div>
+                <h2>DailyPlan</h2>
+            </div>
+            
+            <div class="day-selectors">
+                <h3>Pilih Hari</h3>
+                <button class="day-btn active" data-day="regular">
+                    <i data-lucide="calendar"></i> Hari Biasa
+                </button>
+                <button class="day-btn" data-day="thursday">
+                    <i data-lucide="sparkles"></i> Hari Kamis <span class="badge">CG</span>
+                </button>
+                <button class="day-btn" data-day="sunday">
+                    <i data-lucide="church"></i> Hari Minggu <span class="badge">Gereja</span>
+                </button>
+            </div>
+
+            <!-- Hydration Tracker -->
+            <div class="widget hydration-widget">
+                <div class="widget-header">
+                    <h4><i data-lucide="droplet" class="blue-icon"></i> Water Tracker</h4>
+                    <span class="widget-sub">Target: 2 Liter / hari</span>
+                </div>
+                <div class="bottle-visual">
+                    <div class="water-level" id="waterLevel" style="height: 0%;">
+                        <div class="bubbles"></div>
+                    </div>
+                    <span class="bottle-text" id="bottleText">0% (0ml)</span>
+                </div>
+                <div class="water-actions">
+                    <button class="water-btn" id="addWaterBtn">
+                        <i data-lucide="plus"></i> 250ml
+                    </button>
+                    <button class="water-btn reset-btn" id="resetWaterBtn" title="Reset">
+                        <i data-lucide="rotate-ccw"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Overall Progress -->
+            <div class="widget progress-widget">
+                <h4><i data-lucide="line-chart"></i> Progress Hari Ini</h4>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="overallProgress" style="width: 0%;"></div>
+                </div>
+                <span class="progress-text" id="progressText">0% Selesai</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-welcome">
+                    <span class="date-today" id="liveDate">Sabtu, 11 Juli 2026</span>
+                    <h1>Rencana Aktivitas Harianmu</h1>
+                </div>
+                <button class="infographic-btn" id="openInfographicBtn">
+                    <i data-lucide="image"></i> Lihat Infografis
+                </button>
+            </header>
+
+            <!-- Schedule Timeline Grid -->
+            <section class="schedule-section">
+                <div class="section-title-row">
+                    <h2><i data-lucide="clock"></i> Timeline Jadwal</h2>
+                    <span class="live-indicator"><span class="dot"></span> Live Track</span>
+                </div>
+
+                <div class="timeline" id="timelineContainer">
+                    <!-- Cards will be populated dynamically by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Bottom Content (Notes & Motivation) -->
+            <div class="bottom-grid">
+                <!-- Notes Checklist -->
+                <section class="notes-card">
+                    <h3><i data-lucide="sticky-note"></i> Pengingat & Kebiasaan</h3>
+                    <p class="subtitle">Fokus pada kebiasaan baik untuk pertumbuhan dirimu</p>
+                    <ul class="checklist" id="notesChecklist">
+                        <li>
+                            <label class="check-item">
+                                <input type="checkbox" class="note-checkbox" data-index="0">
+                                <span class="custom-checkbox"></span>
+                                <div class="check-text">
+                                    <strong>Minum Air Putih (2L+)</strong>
+                                    <p>Jaga hidrasi tubuh sepanjang hari untuk tetap fokus</p>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="check-item">
+                                <input type="checkbox" class="note-checkbox" data-index="1">
+                                <span class="custom-checkbox"></span>
+                                <div class="check-text">
+                                    <strong>Membaca & Mempelajari Materi</strong>
+                                    <p>Ulas materi perkuliahan minimal 30 menit sehari</p>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="check-item">
+                                <input type="checkbox" class="note-checkbox" data-index="2">
+                                <span class="custom-checkbox"></span>
+                                <div class="check-text">
+                                    <strong>Olahraga & Meditasi</strong>
+                                    <p>Lakukan peregangan, meditasi pagi, atau olahraga ringan</p>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="check-item">
+                                <input type="checkbox" class="note-checkbox" data-index="3">
+                                <span class="custom-checkbox"></span>
+                                <div class="check-text">
+                                    <strong>Berpikir Positif</strong>
+                                    <p>Ucapkan afirmasi positif dan singkirkan kekhawatiran</p>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="check-item">
+                                <input type="checkbox" class="note-checkbox" data-index="4">
+                                <span class="custom-checkbox"></span>
+                                <div class="check-text">
+                                    <strong>Konsumsi Makanan Sehat</strong>
+                                    <p>Pilih makanan bergizi dan hindari junk food berlebihan</p>
+                                </div>
+                            </label>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Motivation Card -->
+                <section class="motivation-card">
+                    <div class="quote-bg-glow"></div>
+                    <div class="motivation-content">
+                        <i data-lucide="quote" class="quote-icon"></i>
+                        <p class="quote-text">
+                            "Jangan takut menghadapi pelajaran yang sulit, karena di situlah kemampuanmu akan bertumbuh."
+                        </p>
+                        <span class="quote-author">Daily Motivation</span>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Infographic Modal -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Desain Gabungan Daily Planner</h3>
+                <button class="close-modal-btn" id="closeModalBtn"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <img src="assets/daily_planner_composite.png" alt="Daily Planner Composite Design" class="modal-img">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
